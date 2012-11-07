@@ -15,7 +15,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
+include_recipe "#{@cookbook_name}::install_ppa" if node.platform == 'ubuntu'
 
 package "clamav" do
     action node[:clamav][:auto_upgrade] ? :upgrade : :install
@@ -24,6 +25,8 @@ package "clamav" do
         notifies :restart, "service[clamav-freshclam]", :delayed
     end
 end
+
+package "libclamav-dev" if node[:clamav][:dev_package]
 
 service "clamav-freshclam" do
     action node[:clamav][:enabled] ? [:enable, :start] : :disable

@@ -21,6 +21,7 @@
 default[:clamav][:version] = nil
 default[:clamav][:auto_upgrade] = false
 default[:clamav][:enabled] = false
+default[:clamav][:dev_package] = false
 
 # Shared and OS-specific Options
 case node.platform
@@ -36,6 +37,7 @@ case node.platform
         default[:clamav][:clamd_service] = "clamav-freshclam"
         default[:clamav][:freshclam_service] = "clamav-freshclam"
 end
+
 default[:clamav][:user] = "clamav"
 default[:clamav][:allow_supplementary_groups] = "no"
 default[:clamav][:bytecode] = "yes"
