@@ -29,6 +29,10 @@
     end
 end
 
+yum_package 'clamav-devel' do
+    only_if node[:clamav][:dev_package]
+end
+
 # ClamAV RPMs put empty placeholder CLD files
 [ "daily.cld", "main.cld" ].each do |f|
     file "#{node[:clamav][:database_directory]}/#{f}" do
